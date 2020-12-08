@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from '../../styles/Header.module.css'
 import SearchIcon from '@material-ui/icons/Search';
+import FlagIcon from '@material-ui/icons/Flag';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 function Header() {
     return (
@@ -9,11 +12,12 @@ function Header() {
                 <img src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
             </div>
 
-            <div className={styles.header__option}>
-                {/* //MUI Location icon */}
-
-                <span className={styles.header__optionLineOne}>Deliver to</span>
-                <span className={styles.header__optionLineTwo}>Pakistan</span>
+            <div className={styles.header__nav}>
+                <LocationOnIcon />
+                <div className={styles.header__option} >
+                    <span className={styles.header__optionLineOne}>Deliver to</span>
+                    <span className={styles.header__optionLineTwo}>Pakistan</span>
+                </div>
             </div>
 
             <div className={styles.header__search}>
@@ -24,7 +28,12 @@ function Header() {
 
             <div className={styles.header__nav}>
                 <div className={styles.header__option}>
-                    {/* Language Selector */}
+                    <div className={styles.header__langSelect} >
+                        <FlagIcon />
+                        <select className={styles.header_dropDown} id="-1-language-sel-header" >
+                            <option value="lang" index="1">Eng</option>
+                        </select>
+                    </div>
                 </div>
                 <div className={styles.header__option}>
                     <span className={styles.header__optionLineOne}>Hello, there</span>
@@ -34,16 +43,14 @@ function Header() {
                 <div className={styles.header__option}>
                     <span className={styles.header__optionLineOne}>Returns</span>
                     <span className={styles.header__optionLineTwo}>& Orders</span>
-
                 </div>
-                <div className={styles.header__option}>
-                    {/* Card Dynamic count */}
-                    {/* Card Icon */}
-                    <span className={styles.header__optionLineTwo}>Cart</span>
+
+                <div className={styles.header__nav, styles.header__option}>
+                    <span className={styles.header__optionLineTwo}>0</span>
+                    <AddShoppingCartIcon />
                 </div>
             </div>
-
-        </div>
+        </div >
     )
 }
 
