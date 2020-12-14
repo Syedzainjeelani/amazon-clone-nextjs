@@ -38,7 +38,6 @@ function Header() {
                 <div className={styles.header__option}>
                     <span className={styles.header__optionLineOne}>Hello, there</span>
                     <span className={styles.header__optionLineTwo}>Sign in</span>
-
                 </div>
                 <div className={styles.header__option}>
                     <span className={styles.header__optionLineOne}>Returns</span>
