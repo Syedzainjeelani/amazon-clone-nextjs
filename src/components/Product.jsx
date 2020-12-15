@@ -1,7 +1,23 @@
 import React from 'react'
 import styles from '../../styles/Product.module.css'
+import { useStateContext } from '../StateProvider'
 
-function Product({ id, title, price, rating, image, hideButton }) {
+function Product({ id, title, price, rating, image }) {
+    const [{ cart }, dispatch] = useStateContext()
+
+    const addToCart = () => {
+        dispatch({
+            type: "ADD_TO_CART",
+            item: {
+                id: id,
+                title: title,
+                price: price,
+                rating: rating,
+                image: image,
+            }
+        })
+    }
+
     return (
         <div className={styles.product}>
 
@@ -19,7 +35,7 @@ function Product({ id, title, price, rating, image, hideButton }) {
 
             <img src={image} alt="product_img" />
 
-            {!hideButton && (<button>Add to Cart</button>)}
+            <button onClick={addToCart}>Add to Cart</button>
         </div>
     )
 }

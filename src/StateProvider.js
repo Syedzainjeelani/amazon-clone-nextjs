@@ -18,6 +18,12 @@ export const getCartTotal = (cart) =>
 const reducer = (state, action) => {
     console.log(action);
     switch (action.type) {
+        case "ADD_TO_CART":
+            return {
+                ...state,  // with the current old state
+                cart: [...state.cart, action.item],  //with old cart items add new item
+            }
+
         default:
             return state;
     }

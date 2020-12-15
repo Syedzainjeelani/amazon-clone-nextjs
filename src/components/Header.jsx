@@ -5,8 +5,12 @@ import FlagIcon from '@material-ui/icons/Flag';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Link from 'next/link';
+import { useStateContext } from '../StateProvider';
 
 function Header() {
+    const [{ cart }] = useStateContext();
+
+
     return (
         <div className={styles.header}>
             <div className={styles.header__logo}>
@@ -49,7 +53,9 @@ function Header() {
 
                 <Link href='/checkout'>
                     <div className={styles.header__nav, styles.header__option}>
-                        <span className={styles.header__optionLineTwo, styles.header__cartCount}>0</span>
+                        <span className={styles.header__optionLineTwo, styles.header__cartCount}>
+                            {cart.length}
+                        </span>
                         <AddShoppingCartIcon />
                     </div>
                 </Link>
