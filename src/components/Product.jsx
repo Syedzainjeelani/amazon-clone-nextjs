@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../../styles/Product.module.css'
 
-function Product({ id, title, price, rating, image }) {
+function Product({ id, title, price, rating, image, hideButton }) {
     return (
         <div className={styles.product}>
 
@@ -19,7 +19,7 @@ function Product({ id, title, price, rating, image }) {
 
             <img src={image} alt="product_img" />
 
-            <button>Add to Cart</button>
+            {!hideButton && (<button>Add to Cart</button>)}
         </div>
     )
 }

@@ -10,22 +10,21 @@
     right: 0;
     z-index: 100;
     white-space: nowrap;
+    border-bottom: 1px solid darkgray;
 }
 
 .header__logo img {
     width: 100px;
     object-fit: contain;
-    margin: 15px;
+    margin: 10px;
+    margin-bottom: 6px;
     margin-top: 18px;
 }
 
-
-/* .header__optionHover:hover {
-    flex-direction: row;
-    border: 1px;
-    border: 1px solid #d49946;
-    border-radius: 3px;
-} */
+.header__logo:hover {
+    border: 0.5px solid #d49946;
+    /* border-radius: 3px; */
+}
 
 .header__search {
     display: flex;

@@ -4,12 +4,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import FlagIcon from '@material-ui/icons/Flag';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Link from 'next/link';
 
 function Header() {
     return (
         <div className={styles.header}>
             <div className={styles.header__logo}>
-                <img src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
+                <Link href='/'>
+                    <img src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
+                </Link>
             </div>
 
             <div className={styles.header__nav}>
@@ -44,10 +47,12 @@ function Header() {
                     <span className={styles.header__optionLineTwo}>& Orders</span>
                 </div>
 
-                <div className={styles.header__nav, styles.header__option}>
-                    <span className={styles.header__optionLineTwo}>0</span>
-                    <AddShoppingCartIcon />
-                </div>
+                <Link href='/checkout'>
+                    <div className={styles.header__nav, styles.header__option}>
+                        <span className={styles.header__optionLineTwo, styles.header__cartCount}>0</span>
+                        <AddShoppingCartIcon />
+                    </div>
+                </Link>
             </div>
         </div >
     )
