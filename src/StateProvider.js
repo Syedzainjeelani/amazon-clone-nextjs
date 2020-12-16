@@ -23,6 +23,21 @@ const reducer = (state, action) => {
                 ...state,  // with the current old state
                 cart: [...state.cart, action.item],  //with old cart items add new item
             }
+        case "REMOVE_FROM_CART":
+            const index = state.cart.findIndex((item) => (item.id === action.id))
+            let newCart = [...state.cart]
+            if (index >= 0) {
+                newCart.splice(index, 1);
+            } else {
+                console.warn(`Can't remove product {id: ${action.id} not found!}`)
+            }
+
+            return {
+                ...state,  // with the current old OTHER state
+                // cart: state.cart.filter((item, ind) => (item.id != action.id)),  //with old cart items add new item
+                cart: newCart,
+
+            }
 
         default:
             return state;

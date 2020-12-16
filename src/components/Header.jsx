@@ -42,10 +42,12 @@ function Header() {
                         </select>
                     </div>
                 </div>
-                <div className={styles.header__option}>
-                    <span className={styles.header__optionLineOne}>Hello, there</span>
-                    <span className={styles.header__optionLineTwo}>Sign in</span>
-                </div>
+                <Link href='/login'>
+                    <div className={styles.header__option}>
+                        <span className={styles.header__optionLineOne}>Hello, there</span>
+                        <span className={styles.header__optionLineTwo}>Sign in</span>
+                    </div>
+                </Link>
                 <div className={styles.header__option}>
                     <span className={styles.header__optionLineOne}>Returns</span>
                     <span className={styles.header__optionLineTwo}>& Orders</span>
