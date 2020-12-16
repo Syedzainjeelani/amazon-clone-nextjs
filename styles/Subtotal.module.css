@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    min-width: 10em;
     height: 100px;
     background-color: whitesmoke;
     padding: 20px;
@@ -28,4 +29,11 @@
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+}
+
+.subtotal>button:hover {
+    background: #fcb400;
+    border: 1px solid;
+    border-color: #bd8906 #9c7231 #846a29;
+    /* padding: 6px; */
 }

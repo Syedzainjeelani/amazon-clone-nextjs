@@ -10,7 +10,7 @@ export const initialState = {
     user: null
 };
 
-// Selector
+// Selector (reducer functions should be inside the state provider file)
 export const getCartTotal = (cart) =>
     cart?.reduce((amount, item) => item.price + amount, 0);
 
