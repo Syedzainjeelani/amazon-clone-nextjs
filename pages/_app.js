@@ -1,35 +1,14 @@
 import Header from '../src/components/Header'
 import Head from 'next/head'
 import '../styles/globals.css'
-import { useState, useEffect } from 'react'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { StateProvider } from '../src/StateProvider'
 // import ServiceWorker from  ??
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const showHeader = router.pathname === '/login' ? false : true;
-  // const [showHeader, setShowHeader] = useState(true)
 
-
-  // const handleRouteChange = (url) => {
-  //   console.log(url)
-  //   if (url === '/login') {
-  //     setShowHeader(false);
-  //   } else {
-  //     setShowHeader(true);
-  //   }
-  // }
-
-
-  // Router.events.on('routeChangeComplete', handleRouteChange);
-
-  //just like component did mount
-  // useEffect(() => {
-  //   console.log("USEing effect....")
-  //   // Router.events.on('routeChangeComplete', handleRouteChange)
-  // }
-  //   , [showHeader])
 
   return (
     <div>

@@ -2,6 +2,9 @@ import styles from '../styles/Home.module.css'
 import Product from '../src/components/Product'
 
 export default function Home() {
+
+
+
   return (
     <div className={styles.home}>
       <div className={styles.home__container}>

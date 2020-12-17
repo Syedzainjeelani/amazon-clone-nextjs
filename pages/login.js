@@ -1,13 +1,16 @@
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styles from '../styles/Login.module.css'
 import { auth } from '../src/firebase'
+import Link from 'next/Link'
+
+
 
 
 function login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const router = useRouter();
 
     const signin = (e) => {
         //use firebases authentication...
@@ -15,7 +18,12 @@ function login() {
         e.preventDefault();
         auth
             .signInWithEmailAndPassword(email, password)
-            .then((auth) => console.log(auth))
+            .then((auth) => {
+                console.log(auth)
+                if (auth) {
+                    router.push('/');
+                }
+            })
             .catch((err) => {
                 if (email.length === 0 || password.length === 0) {
                     alert(`Please Enter Email & Pass to Sign In`)
@@ -33,7 +41,12 @@ function login() {
 
         auth
             .createUserWithEmailAndPassword(email, password)
-            .then((auth) => console.log(auth))
+            .then((auth) => {
+                console.log(auth)
+                if (auth) {
+                    router.push('/')
+                }
+            })
             .catch((err) => {
                 if (email.length === 0 || password.length === 0) {
                     alert(`Please Enter Email & Pass to create account`)

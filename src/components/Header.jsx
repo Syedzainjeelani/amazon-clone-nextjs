@@ -1,15 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from '../../styles/Header.module.css'
 import SearchIcon from '@material-ui/icons/Search';
 import FlagIcon from '@material-ui/icons/Flag';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import Link from 'next/link';
+import Link from 'next/Link';
 import { useStateContext } from '../StateProvider';
+import { auth } from '../firebase';
 
 function Header() {
-    const [{ cart }] = useStateContext();
+    // const [state] = useStateContext();
+    const [state, dispatch] = useStateContext();
 
+    console.log("User...", state.user)
+    //just like component did mount (will run every time component is loaded)
+    useEffect(() => {
+        console.log("Using effect.... in Header")
+        auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                // if user is signed in then store the user inside the data layer (the context api)
+                dispatch({
+                    type: "ADD_USER",
+                    user: authUser,
+                })
+            } else {
+                dispatch({
+                    type: "ADD_USER",
+                    user: null,
+                })
+            }
+        })
+    }, [])
 
     return (
         <div className={styles.header}>
@@ -44,8 +65,10 @@ function Header() {
                 </div>
                 <Link href='/login'>
                     <div className={styles.header__option}>
-                        <span className={styles.header__optionLineOne}>Hello, there</span>
-                        <span className={styles.header__optionLineTwo}>Sign in</span>
+                        <span className={styles.header__optionLineOne}>Hello, {
+                            state.user ? state.user.email.substring(0, 5) : "There"
+                        }</span>
+                        {!state.user && <span className={styles.header__optionLineTwo}>Sign in</span>}
                     </div>
                 </Link>
                 <div className={styles.header__option}>
@@ -56,7 +79,7 @@ function Header() {
                 <Link href='/checkout'>
                     <div className={styles.header__nav, styles.header__option}>
                         <span className={styles.header__optionLineTwo, styles.header__cartCount}>
-                            {cart.length}
+                            {state.cart.length}
                         </span>
                         <AddShoppingCartIcon />
                     </div>
