@@ -4,8 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-.github/
 .firebase/
+
 # testing
 /coverage
 
@@ -32,9 +32,6 @@ yarn-error.log*
 .env.production.local
 next.config.js
 /src/firebase.js
-.firebaserc
-firebase.json
-# .firebase/
 
 # vercel
 .vercel
