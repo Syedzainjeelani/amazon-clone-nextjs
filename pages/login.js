@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styles from '../styles/Login.module.css'
 import { auth } from '../src/firebase'
-import Link from 'next/Link'
+import Link from 'next/link'
 
 
 

@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import FlagIcon from '@material-ui/icons/Flag';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { useStateContext } from '../StateProvider';
 import { auth } from '../firebase';
 
