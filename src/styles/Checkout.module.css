@@ -1,20 +1,23 @@
 .checkout {
     display: flex;
-    width: 100%;
+    width: inherit;
+    /* min-width: 100%; */
     padding: 20px;
     height: max-content;
 }
 
 .checkout__left {
     margin-right: 20px;
-    width: 50%;
-    min-width: 30rem;
+    justify-content: space-evenly;
+    width: 70%;
+    min-width: 450px;
     background-color: white;
 }
 
 .checkout__right {
-    width: 50%;
-    min-width: 13.5rem
+    width: 25%;
+    min-width: max-content;
+    margin-right: 20px;
 }
 
 .checkout__title {
