@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 .firebase/
-
+firebaseFunctions.js
 # testing
 /coverage
 
@@ -15,6 +15,7 @@
 
 # production
 /build
+
 
 # misc
 .DS_Store
@@ -31,7 +32,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 firebase_env.js
-/src/next.config.js
+/src/firebase.config.js
 
 # vercel
 .vercel
