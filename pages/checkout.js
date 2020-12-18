@@ -15,7 +15,7 @@ function checkout() {
                     {/* <h2 className={styles.checkout__title}> </h2> */}
                     <h2 className={styles.checkout__title}>
                         Hello, {user?.email} <br />
-                        {/* (?) = optional chaining helps with errs until user is loaded */}
+                        {/* (?) = (like a try catch block) optional chaining helps with errs until user is loaded */}
                     Your Shoping Cart {cart.length === 0 && 'is Empty'}
                     </h2>
 
