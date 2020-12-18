@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from '../styles/Checkout.module.css'
-import Subtotal from '../src/components/Subtotal'
-import CheckoutProduct from '../src/components/CheckoutProduct'
-import { useStateContext } from '../src/StateProvider'
+import Subtotal from '../components/Subtotal'
+import CheckoutProduct from '../components/CheckoutProduct'
+import { useStateContext } from '../StateProvider'
 
 function checkout() {
     const [{ cart, user }] = useStateContext();

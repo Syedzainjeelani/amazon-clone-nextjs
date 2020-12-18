@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import styles from '../../styles/Header.module.css'
+import styles from '../styles/Header.module.css'
 import SearchIcon from '@material-ui/icons/Search';
 import FlagIcon from '@material-ui/icons/Flag';
 import LocationOnIcon from '@material-ui/icons/LocationOn';

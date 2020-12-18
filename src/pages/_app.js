@@ -1,8 +1,8 @@
-import Header from '../src/components/Header'
+import Header from '../components/Header'
 import Head from 'next/head'
 import '../styles/globals.css'
 import { useRouter } from 'next/router'
-import { StateProvider } from '../src/StateProvider'
+import { StateProvider } from '../StateProvider'
 // import ServiceWorker from  ??
 
 function MyApp({ Component, pageProps }) {

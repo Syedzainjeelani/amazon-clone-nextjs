@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../styles/Product.module.css'
+import styles from '../styles/Product.module.css'
 import { useStateContext } from '../StateProvider'
 
 function Product({ id, title, price, rating, image }) {

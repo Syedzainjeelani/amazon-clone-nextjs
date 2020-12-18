@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../styles/CheckoutProduct.module.css'
+import styles from '../styles/CheckoutProduct.module.css'
 import { useStateContext } from '../StateProvider'
 
 function CheckoutProduct({ id, title, price, rating, image }) {

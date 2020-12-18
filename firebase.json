@@ -1,22 +1,21 @@
 {
     "hosting": {
         "public": "public",
-        "ignore": [
-            "firebase.json",
-            "**/.*",
-            "**/node_modules/**"
-        ],
         "rewrites": [{
-            "source": "**",
-            "function": "nextjsFunc"
+            "source": "**/**",
+            "function": "src/pages"
         }]
     },
     "functions": {
         "source": ".",
-        "predeploy": [
-            "npm --prefix \"$PROJECT_DIR\" install",
-            "npm --prefix \"$PROJECT_DIR\" run build"
-        ],
-        "runtime": "nodejs10"
+        "ignore": [
+            "**/public/**",
+            ".firebase/**",
+            ".firebaserc",
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
+
     }
 }
