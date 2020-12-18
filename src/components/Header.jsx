@@ -9,14 +9,14 @@ import { useStateContext } from '../StateProvider';
 import { auth } from '../firebase';
 
 function Header() {
-    // const [state] = useStateContext();
     const [state, dispatch] = useStateContext();
 
-    console.log("User...", state.user)
     //just like component did mount (will run every time component is loaded)
     useEffect(() => {
         console.log("Using effect.... in Header")
         auth.onAuthStateChanged((authUser) => {
+            console.log("User...", state.user)
+
             if (authUser) {
                 // if user is signed in then store the user inside the data layer (the context api)
                 dispatch({
@@ -31,6 +31,14 @@ function Header() {
             }
         })
     }, [])
+
+    const signout = (e) => {
+        const user = state.user
+        console.log("Sign out", user)
+        if (user) {
+            auth.signOut().then((res) => console.log('Res after sign out', res))
+        }
+    }
 
     return (
         <div className={styles.header}>
@@ -63,13 +71,15 @@ function Header() {
                         </select>
                     </div>
                 </div>
-                <Link href='/login'>
-                    <div className={styles.header__option}>
+                <Link href={!state.user ? '/login' : ""} >
+
+                    <div onClick={signout} className={styles.header__option}>
                         <span className={styles.header__optionLineOne}>Hello, {
                             state.user ? state.user.email.substring(0, 5) : "There"
                         }</span>
-                        {!state.user && <span className={styles.header__optionLineTwo}>Sign in</span>}
+                        {<span className={styles.header__optionLineTwo}>Sign {state.user ? ' out' : ` in`}</span>}
                     </div>
+
                 </Link>
                 <div className={styles.header__option}>
                     <span className={styles.header__optionLineOne}>Returns</span>

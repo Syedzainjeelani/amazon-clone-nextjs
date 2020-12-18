@@ -5,14 +5,20 @@ import CheckoutProduct from '../src/components/CheckoutProduct'
 import { useStateContext } from '../src/StateProvider'
 
 function checkout() {
-    const [{ cart }] = useStateContext();
+    const [{ cart, user }] = useStateContext();
     return (
         <div className={styles.checkout}>
 
             <div className={styles.checkout__left}>
 
                 <div>
-                    <h2 className={styles.checkout__title}>Your Shoping Cart</h2>
+                    {/* <h2 className={styles.checkout__title}> </h2> */}
+                    <h2 className={styles.checkout__title}>
+                        Hello, {user?.email} <br />
+                        {/* (?) = optional chaining helps with errs until user is loaded */}
+                    Your Shoping Cart {cart.length === 0 && 'is Empty'}
+                    </h2>
+
                 </div>
 
                 {cart.map((item, ind) => (
