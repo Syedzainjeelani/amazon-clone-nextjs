@@ -1,11 +1,7 @@
 {
     "hosting": {
-        "public": "build",
-        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-        "rewrites": [{
-            "source": "**",
-            "function": "nextjsFunc"
-        }]
+        "public": "build/server/pages",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
 
 }

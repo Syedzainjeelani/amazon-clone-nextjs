@@ -1,7 +1,8 @@
 {
     "name": "amazon-clone-nextjs",
     "version": "0.1.0",
-    "private": true,
+    "private": false,
+    "main": "index.js",
     "scripts": {
         "dev": "next src/",
         "build": "next build src/",
@@ -10,7 +11,7 @@
         "serve": "npm run build && firebase emulators:start --only hosting",
         "shell": "npm run build && firebase functions:shell",
         "logs": "firebase functions:log",
-        "deploy": "firebase deploy"
+        "deploy": "firebase deploy --only hosting"
     },
     "dependencies": {
         "@emotion/react": "^11.1.2",
@@ -26,5 +27,4 @@
     "devDependencies": {
         "firebase-tools": "^8.6.0"
     }
-
 }
