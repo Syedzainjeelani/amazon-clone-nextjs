@@ -10,6 +10,7 @@ firebaseFunctions.js
 firebase.json
 .firebaserc
 .github/
+package_firebase.json
 
 # testing
 /coverage

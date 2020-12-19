@@ -3,14 +3,9 @@
     "version": "0.1.0",
     "private": false,
     "scripts": {
-        "dev": "next src/",
-        "build": "next build src/",
-        "start": "next start src/",
-        "export": "next export",
-        "serve": "npm run build && firebase emulators:start --only functions,hosting",
-        "shell": "npm run build && firebase functions:shell",
-        "logs": "firebase functions:log",
-        "deploy": "firebase deploy --only functions,hosting"
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
     },
     "dependencies": {
         "@emotion/react": "^11.1.2",
