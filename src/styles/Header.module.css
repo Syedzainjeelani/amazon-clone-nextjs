@@ -1,15 +1,17 @@
 .header {
     display: flex;
+    flex: 1;
     background-color: white;
     height: 60px;
     width: 100%;
-    min-width: 50rem;
+    min-width: 52rem;
+    /* white-space: nowrap; */
+    object-fit: cover;
     align-items: center;
     position: sticky;
     top: 0;
     right: 0;
     z-index: 100;
-    white-space: nowrap;
     border-bottom: 1px solid darkgray;
 }
 
@@ -82,7 +84,6 @@
     /* box-sizing: content-box; */
     justify-content: space-evenly;
     align-items: center;
-    width: auto;
 }
 
 .header__option:hover {

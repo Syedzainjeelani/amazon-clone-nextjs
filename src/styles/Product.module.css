@@ -8,8 +8,13 @@
     padding: 15px;
     width: 100%;
     max-height: 400px;
-    min-width: 100px;
+    min-width: 120px;
     z-index: 1;
+}
+
+.product:hover {
+    border: 1px solid;
+    box-shadow: 1px 2px 15px 3px darkgray;
 }
 
 .product__info {
@@ -40,6 +45,20 @@
     padding: 5px;
     border-color: #a88734 #9c7231 #846a29;
     color: #111;
+}
+
+.subtotal__splash {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    /* background: rgba(255, 255, 255, .2); */
+    background: rgba(99, 63, 29, 0.829);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: .5s ease-out;
 }
 
 .product>button:hover {

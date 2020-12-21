@@ -75,7 +75,7 @@ function Header() {
 
                     <div onClick={signout} className={styles.header__option}>
                         <span className={styles.header__optionLineOne}>Hello, {
-                            state.user ? state.user.email.substring(0, 5) : "There"
+                            state.user ? state.user.email.substring(0, state.user.email.indexOf('@')) : "There"
                         }</span>
                         {<span className={styles.header__optionLineTwo}>Sign {state.user ? ' out' : ` in`}</span>}
                     </div>

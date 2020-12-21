@@ -3,6 +3,7 @@ import Head from 'next/head'
 import '../styles/globals.css'
 import { useRouter } from 'next/router'
 import { StateProvider } from '../StateProvider'
+import Footer from '../components/Footer'
 // import ServiceWorker from  ??
 
 function MyApp({ Component, pageProps }) {
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
         <StateProvider >
           {showHeader && <Header />}
           <Component {...pageProps} />
+          {showHeader && <Footer />}
         </StateProvider>
 
       </main>

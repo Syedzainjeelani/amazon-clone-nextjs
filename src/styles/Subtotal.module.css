@@ -4,7 +4,8 @@
     justify-content: space-between;
     width: 100%;
     min-width: 200px;
-    height: 100px;
+    min-height: 130px;
+    height: max-content;
     background-color: whitesmoke;
     padding: 20px;
     border-radius: 5px;
@@ -31,9 +32,27 @@
     color: #111;
 }
 
+.subtotal>button[disabled] {
+    opacity: 0.5;
+    background: lightgray;
+    border: none;
+}
+
 .subtotal>button:hover {
     background: #fcb400;
-    border: 1px solid;
+    border: inherit;
     border-color: #bd8906 #9c7231 #846a29;
-    /* padding: 6px; */
+}
+
+.subtotal>button[disabled]:hover {
+    background: lightgray;
+    border: 1px;
+    border-color: none;
+}
+
+.subtotal__caption {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+    justify-content: center;
 }
