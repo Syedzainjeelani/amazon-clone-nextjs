@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styles from '../styles/Checkout.module.css'
 import Subtotal from '../components/Subtotal'
 import CheckoutProduct from '../components/CheckoutProduct'
 import { useStateContext } from '../StateProvider'
+import FlipMove from 'react-flip-move'
 
 function checkout() {
     const [{ cart, user }] = useStateContext();
+
+    const ticketNotVisibleState = {
+        transform: "translateX(-100%)",
+        opacity: 0.1
+    };
+
+
+    const FunctionalArticle = forwardRef((props, ref) => (
+        <div ref={ref}>
+            {/* {props.title} */}
+            <CheckoutProduct
+                id={props.id}
+                title={props.title}
+                price={props.price}
+                rating={props.rating}
+                image={props.image}
+            />
+        </div>
+    ));
+
+
     return (
         <div className={styles.checkout}>
 
@@ -20,16 +42,20 @@ function checkout() {
                     </h2>
 
                 </div>
-
-                {cart.map((item, ind) => (
-                    <CheckoutProduct
-                        id={item.id}
-                        title={item.title}
-                        price={item.price}
-                        rating={item.rating}
-                        image={item.image}
-                    />
-                ))}
+                <FlipMove
+                    enterAnimation={{
+                        from: ticketNotVisibleState,
+                        to: {}
+                    }}
+                    leaveAnimation={{
+                        from: {},
+                        to: ticketNotVisibleState,
+                    }}
+                >
+                    {cart.map((item, ind) => (
+                        <FunctionalArticle key={item.id + ind} {...item} />
+                    ))}
+                </FlipMove>
 
 
             </div>
@@ -45,3 +71,12 @@ function checkout() {
 }
 
 export default checkout
+
+
+{/* <CheckoutProduct
+                                id={item.id}
+                                title={item.title}
+                                price={item.price}
+                                rating={item.rating}
+                                image={item.image}
+                            /> */}
