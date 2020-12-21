@@ -34,7 +34,7 @@ function Subtotal() {
                 <div id="splash" className={styles.subtotal__splash}></div>
                 </button>
             </Link>
-            {!user || cart.length === 0 && <p className={styles.subtotal__caption}>{cart.length === 0 ? "Please Add some items to the Cart" : "Please Sign in First"}</p>}
+            {(!user || (cart.length === 0)) && <p className={styles.subtotal__caption}>{cart.length === 0 && user ? "Please Add some items to the Cart" : "Please Sign in First"}</p>}
         </div>
     )
 }
