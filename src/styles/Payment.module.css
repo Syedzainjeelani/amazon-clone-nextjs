@@ -1,0 +1,28 @@
+.payment {
+    display: flex;
+    width: inherit;
+    min-width: 50rem;
+    height: max-content;
+}
+
+.payment__address>form>textarea {
+    resize: none;
+}
+
+.payment__address {
+    width: 60%;
+    height: max-content;
+    background: lightgray;
+}
+
+.payment__products {
+    justify-content: center;
+    min-height: 300px;
+    object-fit: cover;
+    /* white-space: wrap; */
+    padding: 15px;
+    margin-right: 50px;
+    background: white;
+    width: 40%;
+    min-width: 400px;
+}

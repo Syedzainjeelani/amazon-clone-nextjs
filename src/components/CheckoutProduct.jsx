@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../styles/CheckoutProduct.module.css'
 import { useStateContext } from '../StateProvider'
 
-function CheckoutProduct({ id, title, price, rating, image }) {
+function CheckoutProduct({ id, title, price, rating, image, hidden }) {
     const [state, dispatch] = useStateContext();
 
     const removeFromCart = () => {
@@ -27,7 +27,7 @@ function CheckoutProduct({ id, title, price, rating, image }) {
                         .fill().map((item, ind) => <p>🌟</p>)}
                 </div>
 
-                <button onClick={removeFromCart}>Remove From Cart</button>
+                {!hidden && <button onClick={removeFromCart}>Remove From Cart</button>}
             </div>
         </div>
     )
