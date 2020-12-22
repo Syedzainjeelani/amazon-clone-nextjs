@@ -12,11 +12,20 @@
     min-width: 52rem;
 }
 
-.home__image {
+.home__container {
     width: 100%;
-    z-index: -1;
-    margin-bottom: -22%;
+    height: auto;
+    display: flex;
+    background-size: 100%;
+    justify-content: space-evenly;
+    margin-bottom: -16%;
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 2), rgba(0, 0, 0, 0));
+}
+
+.home__image {
+    height: 130%;
+    max-width: 100%;
+    object-fit: cover;
 }
 
 .home__row {
