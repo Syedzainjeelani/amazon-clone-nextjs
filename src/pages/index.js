@@ -13,7 +13,7 @@ export default function Home() {
       <div className={styles.home__container}>
         <Carousel className={carouselStyles}
           showStatus={false}
-          infiniteLoop={true} autoPlay={false} swiping={true} showIndicators={false} showThumbs={false} showArrows={true}>
+          infiniteLoop={true} autoPlay={true} swiping={true} showIndicators={false} showThumbs={false} showArrows={true}>
           <img className={styles.home__image}
             src="https://images-eu.ssl-images-amazon.com/images/G/31/img20/Audio/Hdpns_Gw_1500x600._CB415716258_.jpg"
             alt="home_bg_img"
