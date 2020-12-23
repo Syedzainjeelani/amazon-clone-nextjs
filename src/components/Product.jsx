@@ -60,7 +60,7 @@ function Product({ id, title, price, rating, image }) {
         setOpen(true)
         setTimeout(() => {
             setOpen(false)
-        }, 800);
+        }, 500);
     }
 
     const addToCart = () => {

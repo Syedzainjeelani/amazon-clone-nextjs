@@ -3,26 +3,65 @@
     width: inherit;
     min-width: 50rem;
     height: max-content;
+    justify-content: space-between;
 }
 
-.payment__address>form>textarea {
-    resize: none;
+.payment__billCard {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-width: 370px;
 }
 
 .payment__address {
-    width: 60%;
+    align-items: center;
+    justify-content: center;
     height: max-content;
     background: lightgray;
+    padding: 15px;
+    margin: 20px;
+    /* margin-right: 20px; */
+    border-radius: 5px;
+    border: 1px solid gray;
+    min-width: 300px;
+    max-width: 550px;
+}
+
+.payment__address>p {
+    padding: 5px;
+}
+
+.payment__address>form>input {
+    height: 30px;
+    width: 90%;
+    min-width: 50%;
+    margin: 5px;
+}
+
+.payment__card {
+    min-width: 300px;
+    max-width: 550px;
+    height: 200px;
+    margin: 20px;
+    margin-top: 5px;
+    padding: 15px;
+    background: lightgray;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.payment__card>p {
+    padding: 5px;
 }
 
 .payment__products {
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 300px;
     object-fit: cover;
     /* white-space: wrap; */
-    padding: 15px;
-    margin-right: 50px;
+    padding: 20px;
+    margin-right: 20px;
     background: white;
-    width: 40%;
+    width: 35%;
     min-width: 400px;
 }

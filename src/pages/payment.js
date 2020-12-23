@@ -10,16 +10,25 @@ function payment() {
     return (
         <div className={styles.payment}>
 
-            <div className={styles.payment__address}>
-                <p>Add Billing Address</p>
-                <form action="">
-                    <input type="text" placeholder="Fullname" />
-                    <textarea type="text" placeholder="Address" rows="2" maxLength="50px" />
-                    <input type="text" placeholder="City" />
-                    <input type="number" placeholder="Postal Code" />
-                    <input type="text" placeholder="State" />
-                    <input type="text" placeholder="Country" />
-                </form>
+            <div className={styles.payment__billCard}>
+
+                <div className={styles.payment__address}>
+                    <p>Add Billing Address</p>
+                    <form action="">
+                        <input type="text" placeholder="Fullname" />
+                        <input type="text" placeholder="Address Line 1" />
+                        <input type="text" placeholder="Address Line 2 (Optional)" />
+                        <input type="text" placeholder="City" />
+                        <input type="number" placeholder="Postal Code" />
+                        <input type="text" placeholder="State" />
+                        <input type="text" placeholder="Country" />
+                    </form>
+                </div>
+
+                <div className={styles.payment__card}>
+                    <p>Add Payment Information</p>
+                </div>
+
             </div>
 
             <div className={styles.payment__products}>
@@ -40,9 +49,7 @@ function payment() {
                 }
             </div>
 
-            <div className={styles.payment__card}>
 
-            </div>
         </div>
     )
 }
