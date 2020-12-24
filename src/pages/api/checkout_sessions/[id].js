@@ -11,7 +11,7 @@ export default async function handler(
     res
 ) {
     const id = req.query.id.toString();
-    console.log("INside sessions... checkout session id is: ", id)
+    console.log("After session (id dynamic url) ... checkout session id is: ", id)
     try {
         if (!id.startsWith('cs_')) {
             throw Error('Incorrect CheckoutSession ID.');

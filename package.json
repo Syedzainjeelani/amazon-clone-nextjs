@@ -22,6 +22,7 @@
         "react-flip-move": "^3.0.4",
         "react-responsive-carousel": "^3.2.11",
         "stripe": "^8.129.0",
+        "swr": "^0.3.11",
         "use-shopping-cart": "^2.3.0"
     },
     "devDependencies": {

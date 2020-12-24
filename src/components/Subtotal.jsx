@@ -5,9 +5,15 @@ import { getCartTotal, useStateContext } from '../StateProvider'
 import Link from 'next/link';
 import { fetchPostJSON } from '../utils/api-helpers'
 import getStripe from '../utils/get-stripejs'
+import { useShoppingCart } from 'use-shopping-cart';
+
+import { loadStripe } from '@stripe/stripe-js';
+
+
+let stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 function Subtotal() {
-    const [{ cart, user }] = useStateContext();
+    const [{ cart, user }, dispatch] = useStateContext();
     const [loading, setLoading] = useState(false);
 
     console.log("User>>", user, "isnull", !user)
@@ -18,7 +24,7 @@ function Subtotal() {
         setLoading(true);
 
         // Get Stripe.js instance
-        const stripe = getStripe;
+        const stripe = await stripePromise;
 
         const response = await fetchPostJSON(
             '/api/checkout_sessions/cart',
@@ -30,17 +36,18 @@ function Subtotal() {
             return;
         }
         console.log("Redirect to Checkout....", response.id)
-        setLoading(false)
+        // setLoading(false)
         // When the customer clicks on the button, redirect them to Checkout.
-        // const result = await stripe.redirectToCheckout({
-        //     sessionId: response.id,
-        // });
-        // if (result.error) {
-        //     // If `redirectToCheckout` fails due to a browser or network
-        //     // error, display the localized error message to your customer
-        //     // using `result.error.message`.
-        //     console.log("result error...")
-        // }
+        const result = await stripe.redirectToCheckout({
+            sessionId: response.id,
+        });
+        if (result.error) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer
+            // using `result.error.message`.
+            console.log("result error...")
+        }
+
 
         // redirectToCheckout({ sessionId: response.id });
     };
@@ -65,7 +72,7 @@ function Subtotal() {
                 thousandSeparator={true}
                 prefix={"$"}
             />
-            <button onClick={handleClick} disabled={!user || cart.length === 0 || loading} >Proceed To Checkout
+            <button role="link" onClick={handleClick} disabled={!user || cart.length === 0 || loading} >Proceed To Checkout
                 <div id="splash" className={styles.subtotal__splash}></div>
             </button>
             {/* <Link href="/payment" >

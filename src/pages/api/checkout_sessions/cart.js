@@ -64,20 +64,10 @@ export default async function handler(
                 submit_type: 'pay',
                 payment_method_types: ['card'],
                 billing_address_collection: 'auto',
-                // shipping_address_collection: {
-                //     allowed_countries: ['US', 'CA', "PK"],
-                // },
-                // shipping_address_collection: 'auto',
-                // line_items: [
-                //     {
-                //         price_data:
-                //     }
-                // ],
                 line_items,
                 mode: 'payment',
-                success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
+                success_url: `${req.headers.origin}/checkoutResult?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${req.headers.origin}/checkout`,
-                // cancel_url: `${req.headers.origin}/use-shopping-cart`,
             };
             const checkoutSession = await stripe.checkout.sessions.create(
                 params
