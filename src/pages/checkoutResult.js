@@ -2,15 +2,15 @@ import React, { useEffect } from 'react'
 import useSWR from 'swr';
 import { fetchGetJSON } from '../utils/api-helpers';
 import { useRouter } from 'next/router';
-import { useStateContext } from '../StateProvider';
+import { getCartTotal, useStateContext } from '../StateProvider';
 import logoStyle from '../styles/Login.module.css'
 import Link from 'next/link'
 import styles from '../styles/CheckoutResult.module.css'
-
+import { db, auth } from '../firebase'
 
 function checkoutResult() {
     const router = useRouter();
-    const [{ cart }, dispatch] = useStateContext();
+    const [{ cart, user }, dispatch] = useStateContext();
 
 
     // Fetch CheckoutSession from static page via
@@ -30,20 +30,62 @@ function checkoutResult() {
         })
     }
 
+
+
     useEffect(() => {
+        //Add user if found <nul </null>
+        // auth.onAuthStateChanged((authUser) => {
+        //     console.log("User...", user)
+
+        //     if (authUser) {
+        //         // if user is signed in then store the user inside the data layer (the context api)
+        //         dispatch({
+        //             type: "ADD_USER",
+        //             user: authUser,
+        //         })
+        //     } else {
+        //         dispatch({
+        //             type: "ADD_USER",
+        //             user: null,
+        //         })
+        //     }
+        // })
+
+
         //Add cart items to the firestore DB before emptying
+        console.log('Db.collection... called')
+        console.log("User... ", user)
+        console.log("Data>>> ", data)
 
+        db.collection("users")
+            .doc(user?.uid)
+            .collection("orders")
+            .doc(data?.id)
+            .set({
+                id: data?.payment_intent,
+                amount: getCartTotal(cart),
+                data: cart,
+            })
+            .then((res) => {
+                //Empty cart after successfull checkout
+                emptyCart();
+                console.log("Firebase db res: ", res)
+            })
+            .catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
 
+        console.log("Db.collection...ended")
         //...............
-        //Empty cart after successfull checkout
-        emptyCart();
+
 
         //Redirecting to the Orders page in 5 seconds
-        setInterval(() => (router.push('/orders')), 5000)
-        return () => {
-            ""
-        }
-    }, [])
+        // if (router.pathname.startsWith("/checkoutResult")) {
+        setTimeout(() => {
+            router.push('/orders')
+        }, 5000)
+        // }
+    }, [data])
 
 
 

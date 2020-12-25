@@ -8,17 +8,18 @@ import 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: `${process.env.NEXT_PUBLIC_APIKEY}`,
-    authDomain: `${process.env.AUTHDOMAIN}`,
-    projectId: `${process.env.PROJECTID}`,
-    storageBucket: `${process.env.STORAGEBUCKET}`,
-    messagingSenderId: `${process.env.MESSAGINGSENDERID}`,
+    authDomain: `${process.env.NEXT_PUBLIC_AUTHDOMAIN}`,
+    projectId: `${process.env.NEXT_PUBLIC_PROJECTID}`,
+    storageBucket: `${process.env.NEXT_PUBLIC_STORAGEBUCKET}`,
+    messagingSenderId: `${process.env.NEXT_PUBLIC_MESSAGINGSENDERID}`,
     appId: `${process.env.NEXT_PUBLIC_APPID}`,
-    measurementId: `${process.env.MEASUREMENTID}`,
+    measurementId: `${process.env.NEXT_PUBLIC_MEASUREMENTID}`,
 }
 
 const firebaseApp = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 
 const db = firebaseApp.firestore();
+// const db = firebase.firestore();
 const auth = firebase.auth();
 
 export { db, auth }

@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Product({ id, title, price, rating, image }) {
     const [{ cart }, dispatch] = useStateContext()
-    const [open, setOpen] = useState()
+    const [open, setOpen] = useState(false)
     const classes = useStyles()
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = useState(getModalStyle);
@@ -125,7 +125,6 @@ function Product({ id, title, price, rating, image }) {
                 disableScrollLock
                 disableAutoFocus
                 aria-disabled
-                disableBackdropClick
                 hideBackdrop={true}
             >
                 {body}
