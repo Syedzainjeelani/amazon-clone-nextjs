@@ -1,0 +1,20 @@
+.checkoutResult {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 500px;
+    height: max-content;
+    min-height: 300px;
+    justify-content: center;
+    align-items: center;
+    /* margin: 50px; */
+}
+
+.checkoutResult__status {
+    text-align: center;
+    padding: 15px;
+}
+
+.checkoutResult__orders {
+    font-size: 16px
+}

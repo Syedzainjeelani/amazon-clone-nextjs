@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useStateContext } from '../StateProvider';
 import logoStyle from '../styles/Login.module.css'
 import Link from 'next/link'
+import styles from '../styles/CheckoutResult.module.css'
 
 
 function checkoutResult() {
@@ -32,17 +33,23 @@ function checkoutResult() {
     useEffect(() => {
         //Add cart items to the firestore DB before emptying
 
-        //................
+
+        //...............
+        //Empty cart after successfull checkout
         emptyCart();
+
+        //Redirecting to the Orders page in 5 seconds
+        setInterval(() => (router.push('/orders')), 5000)
         return () => {
             ""
         }
     }, [])
 
 
+
     console.log(data)
     return (
-        <div className={checkoutResult}>
+        <div className={styles.checkoutResult}>
 
             <div >
                 <Link href='/'>
@@ -50,15 +57,13 @@ function checkoutResult() {
                 </Link>
             </div>
 
-            <div>
-                <h2>Checkout Status: {data?.payment_intent?.status ?? 'loading...'}</h2>
-                <h3>Thank you for the purchase</h3>
+            <div className={styles.checkoutResult__status}>
+                <h1>Checkout Status: {data?.payment_intent?.status ?? 'loading...'}</h1>
+                <h2>Thank you for the purchase</h2>
             </div>
 
-            <div>
-                <Link href='/orders'>
-                    <h5>You can check your orders history here.</h5>
-                </Link>
+            <div className={styles.checkoutResult__orders}>
+                <h5>Redirecting to Orders & Returns...</h5>
             </div>
 
         </div>

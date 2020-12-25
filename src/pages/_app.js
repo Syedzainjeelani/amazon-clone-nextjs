@@ -8,7 +8,10 @@ import Footer from '../components/Footer'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const showHeader = router.pathname === '/login' || router.pathname.startsWith("/checkoutResult") ? false : true;
+  const showHeader = router.pathname === '/login' ||
+    router.pathname.startsWith("/checkoutResult") ||
+    router.pathname === '/orders'
+    ? false : true;
 
 
   return (
