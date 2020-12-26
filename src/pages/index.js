@@ -2,35 +2,8 @@ import styles from '../styles/Home.module.css'
 import Product from '../components/Product'
 import { Carousel } from 'react-responsive-carousel'
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css'
-import { useStateContext } from '../StateProvider'
-import { auth } from "../firebase"
-import { useEffect } from 'react'
-
 
 export default function Home() {
-  // const [{ user }, dispatch] = useStateContext();
-
-
-  // //just like component did mount (will run every time component is loaded)
-  // useEffect(() => {
-  //   console.log("Using effect.... in Home")
-  //   auth.onAuthStateChanged((authUser) => {
-  //     console.log("User...", user)
-
-  //     if (authUser) {
-  //       // if user is signed in then store the user inside the data layer (the context api)
-  //       dispatch({
-  //         type: "ADD_USER",
-  //         user: authUser,
-  //       })
-  //     } else {
-  //       dispatch({
-  //         type: "ADD_USER",
-  //         user: null,
-  //       })
-  //     }
-  //   })
-  // }, [])
 
 
   return (

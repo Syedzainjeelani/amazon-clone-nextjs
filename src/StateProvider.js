@@ -16,7 +16,8 @@ export const getCartTotal = (cart) =>
 
 
 const reducer = (state, action) => {
-    console.log(action);
+    // console.log(action);
+    // console.log("Adding to Data layer");
     switch (action.type) {
         case "ADD_TO_CART":
             return {

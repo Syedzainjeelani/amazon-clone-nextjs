@@ -3,32 +3,15 @@ import styles from '../styles/Product.module.css'
 import { useStateContext } from '../StateProvider'
 import { Modal } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-
-
-
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-    const top = 50 + rand();
-    const right = 50 + rand();
-
-    return {
-        // top: `${top}%`,
-        // right: `${right}%`,
-        top: '80px',
-        left: '30px',
-        // right: '30px',
-        // transform: `translate(-${top}%, -${right}%)`,
-    };
-}
+import { db } from "../firebase"
 
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         display: "flex",
-        position: "relative",
+        position: "absolute",
+        top: '80px',
+        left: '30px',
         width: 400,
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
@@ -41,20 +24,13 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '10px'
 
     },
-    modelPosition: {
-        position: 'absolute',
-        top: '40px',
-        right: '50px',
-    }
 }));
 
 
 function Product({ id, title, price, rating, image }) {
-    const [{ cart }, dispatch] = useStateContext()
+    const [{ cart, user }, dispatch] = useStateContext()
     const [open, setOpen] = useState(false)
     const classes = useStyles()
-    // getModalStyle is not a pure function, we roll the style only on the first render
-    const [modalStyle] = useState(getModalStyle);
 
     const handleOpen = () => {
         setOpen(true)
@@ -66,20 +42,40 @@ function Product({ id, title, price, rating, image }) {
     const addToCart = () => {
         handleOpen();
 
+        //Adding cart items to firestore DB too
+        let product = {
+            id: id,
+            title: title,
+            price: price,
+            rating: rating,
+            image: image,
+        }
+
+        if (user !== null) {
+            db.collection("users")
+                .doc(user?.email)
+                .collection("cart")
+                .doc(user?.uid)
+                .set({
+                    cartItems: [...cart, product]
+                })
+                .then((res) => {
+                    console.log("Firestore add to cart: ", res)
+                })
+                .catch(function (error) {
+                    console.error("Error adding cart: ", error);
+                });
+
+        }
+        //Adding to the data layer
         dispatch({
             type: "ADD_TO_CART",
-            item: {
-                id: id,
-                title: title,
-                price: price,
-                rating: rating,
-                image: image,
-            }
+            item: product,
         })
     }
 
     const body = (
-        <div style={modalStyle} className={classes.paper} >
+        <div className={classes.paper} >
             <img className={classes.image} src={image} alt="product_img" />
             <div className={styles.product__info}>
                 <p>{title}</p>
@@ -110,17 +106,14 @@ function Product({ id, title, price, rating, image }) {
                 </p>
                 <div className={styles.product__rating}>
                     {Array(rating)
-                        .fill().map((item, ind) => <p>🌟</p>)}
+                        .fill().map((item, ind) => <p key={ind}>🌟</p>)}
                 </div>
             </div>
 
             <img src={image} alt="product_img" />
             <Modal
-                position={classes.modelPosition}
                 open={open}
                 onClose={handleClose}
-                // aria-labelledby="simple-modal-title"
-                // aria-describedby="simple-modal-description"
                 disableEnforceFocus
                 disableScrollLock
                 disableAutoFocus

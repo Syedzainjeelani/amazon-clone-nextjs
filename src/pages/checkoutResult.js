@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr';
 import { fetchGetJSON } from '../utils/api-helpers';
 import { useRouter } from 'next/router';
@@ -7,10 +7,12 @@ import logoStyle from '../styles/Login.module.css'
 import Link from 'next/link'
 import styles from '../styles/CheckoutResult.module.css'
 import { db, auth } from '../firebase'
+import { formatAmountForDisplay } from "../utils/stripe-helpers"
 
 function checkoutResult() {
     const router = useRouter();
     const [{ cart, user }, dispatch] = useStateContext();
+    const [ordersStored, setOrdersStored] = useState(false);
 
 
     // Fetch CheckoutSession from static page via
@@ -28,64 +30,105 @@ function checkoutResult() {
         dispatch({
             type: "EMPTY_CART",
         })
+
+        //empty from firestore too 
+        db.collection("users")
+            .doc(user?.email)
+            .collection("cart")
+            .doc(user?.uid)
+            .delete().then(() => {
+                console.log("Document Cart successfully deleted!")
+            }).catch((error) => {
+                console.error("Error removing Cart document: ", error);
+            });
+
     }
 
+    const storeOrders = () => {
+
+        if (data?.payment_intent?.status === "succeeded") {
+
+            db.collection("users")
+                .doc(user?.email)
+                .collection("orders")
+                .doc(data?.id)
+                .set({
+                    amount: (data?.payment_intent?.amount / 100),
+                    data: cart, // Cart is empty due to data layer ?????????????????
+                })
+                .then((res) => {
+                    setOrdersStored(true)
+                    //Empty cart from firestore too after successfull checkout
+                    console.log("Firebase db res: ", res)
+                    emptyCart();
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+
+
+
+            //Redirecting to the Orders page in 5 seconds
+            setTimeout(() => {
+                router.push('/orders')
+            }, 2000)
+
+        }
+
+    }
 
 
     useEffect(() => {
         //Add user if found <nul </null>
-        // auth.onAuthStateChanged((authUser) => {
-        //     console.log("User...", user)
+        if (!user) {
+            auth.onAuthStateChanged((authUser) => {
 
-        //     if (authUser) {
-        //         // if user is signed in then store the user inside the data layer (the context api)
-        //         dispatch({
-        //             type: "ADD_USER",
-        //             user: authUser,
-        //         })
-        //     } else {
-        //         dispatch({
-        //             type: "ADD_USER",
-        //             user: null,
-        //         })
-        //     }
-        // })
-
-
-        //Add cart items to the firestore DB before emptying
-        console.log('Db.collection... called')
-        console.log("User... ", user)
-        console.log("Data>>> ", data)
-
-        db.collection("users")
-            .doc(user?.uid)
-            .collection("orders")
-            .doc(data?.id)
-            .set({
-                id: data?.payment_intent,
-                amount: getCartTotal(cart),
-                data: cart,
+                if (authUser) {
+                    // if user is signed in then store the user inside the data layer (the context api)
+                    dispatch({
+                        type: "ADD_USER",
+                        user: authUser,
+                    })
+                } else {
+                    dispatch({
+                        type: "ADD_USER",
+                        user: null,
+                    })
+                }
             })
-            .then((res) => {
-                //Empty cart after successfull checkout
-                emptyCart();
-                console.log("Firebase db res: ", res)
-            })
-            .catch(function (error) {
-                console.error("Error adding document: ", error);
-            });
+        }
 
-        console.log("Db.collection...ended")
-        //...............
+        //fetch cart from firestore too (data layer is not persistent over page reload)
+        if (cart?.length === 0) {
+            //if cart empty load cart from firestore db if empty due to reload
+            db.collection("users")
+                .doc(user?.email)
+                .collection("cart")
+                .get().then((querySnapshot) => {
+                    var cartList = querySnapshot.docs.map((item) => {
+                        //dispatch items from db to data layer
+                        item.data()?.cartItems.map((product) => {
+                            //only add if cart is empty and only due to reload. 
+
+                            dispatch({
+                                type: "ADD_TO_CART",
+                                item: product,
+                            })
+                        })
+                        return item.data().cartItems
+                    })
+                    console.log("Result from checkouT Res: ", cartList)
+
+                })
+        }
+        if ((cart?.length !== 0) && (!ordersStored)) {
+            //finally when cart is loaded then store orders to DB
+            storeOrders()
+        }
 
 
-        //Redirecting to the Orders page in 5 seconds
-        // if (router.pathname.startsWith("/checkoutResult")) {
-        setTimeout(() => {
-            router.push('/orders')
-        }, 5000)
-        // }
-    }, [data])
+
+    }, [data, user, cart])
 
 
 

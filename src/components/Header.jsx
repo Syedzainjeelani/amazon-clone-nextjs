@@ -6,35 +6,61 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Link from 'next/link';
 import { useStateContext } from '../StateProvider';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 
 function Header() {
-    const [state, dispatch] = useStateContext();
+    const [{ cart, user }, dispatch] = useStateContext();
 
     //just like component did mount (will run every time component is loaded)
     useEffect(() => {
-        console.log("Using effect.... in Header")
-        auth.onAuthStateChanged((authUser) => {
-            console.log("User...", state.user)
 
-            if (authUser) {
-                // if user is signed in then store the user inside the data layer (the context api)
-                dispatch({
-                    type: "ADD_USER",
-                    user: authUser,
+        if (!user) {
+            //check and add user to data layer
+            auth.onAuthStateChanged((authUser) => {
+
+                if (authUser) {
+                    // if user is signed in then store the user inside the data layer (the context api)
+                    dispatch({
+                        type: "ADD_USER",
+                        user: authUser,
+                    })
+                } else {
+                    dispatch({
+                        type: "ADD_USER",
+                        user: null,
+                    })
+                }
+            })
+        }
+
+        if (cart?.length === 0 && (user)) {
+            //load cart from firestore db if empty due to reload
+            db.collection("users")
+                .doc(user?.email)
+                .collection("cart")
+                .get().then((querySnapshot) => {
+                    var cartList = querySnapshot.docs.map((item) => {
+                        //dispatch items from db to data layer
+                        item.data()?.cartItems.map((product) => {
+                            //only add if cart is empty and only due to reload. 
+                            // console.log("ITEM: ", product)
+                            dispatch({
+                                type: "ADD_TO_CART",
+                                item: product,
+                            })
+                        })
+                        return item.data().cartItems
+                    })
+                    // console.log("Result><><>", cartList)
                 })
-            } else {
-                dispatch({
-                    type: "ADD_USER",
-                    user: null,
-                })
-            }
-        })
-    }, [])
+        }
+
+
+    }, [user, cart])
 
     const signout = (e) => {
-        const user = state.user
-        console.log("Sign out", user)
+        // const user = user
+        // console.log("Sign out", user)
         if (user) {
             auth.signOut().then((res) => console.log('Res after sign out', res))
         }
@@ -71,13 +97,13 @@ function Header() {
                         </select>
                     </div>
                 </div>
-                <Link href={!state.user ? '/login' : ""} >
+                <Link href={!user ? '/login' : ""} >
 
                     <div onClick={signout} className={styles.header__option}>
                         <span className={styles.header__optionLineOne}>Hello, {
-                            state.user ? state.user.email.substring(0, state.user.email.indexOf('@')) : "There"
+                            user ? user.email.substring(0, user.email.indexOf('@')) : "There"
                         }</span>
-                        {<span className={styles.header__optionLineTwo}>Sign {state.user ? ' out' : ` in`}</span>}
+                        {<span className={styles.header__optionLineTwo}>Sign {user ? ' out' : ` in`}</span>}
                     </div>
 
                 </Link>
@@ -91,7 +117,7 @@ function Header() {
                 <Link href='/checkout'>
                     <div className={styles.header__nav, styles.header__option}>
                         <span className={styles.header__optionLineTwo, styles.header__cartCount}>
-                            {state.cart.length}
+                            {cart.length}
                         </span>
                         <AddShoppingCartIcon />
                     </div>

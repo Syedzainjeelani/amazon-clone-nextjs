@@ -39,8 +39,6 @@ function Subtotal() {
     const [open, setOpen] = useState(false)
     const classes = useStyles()
 
-    console.log("User>>", user, "isnull", !user)
-
 
     const handleClick = async (event) => {
         event.preventDefault();
@@ -69,18 +67,11 @@ function Subtotal() {
             sessionId: response.id,
         }).then((res) => {
             console.log("Result stripe response: ", res)
-            alert(res?.error)
+            alert(res?.error + '/n Please Check Internet connection')
         });
 
         setLoading(false);
         setOpen(false);
-
-        // if (result.error) {
-        //     // If `redirectToCheckout` fails due to a browser or network
-        //     // error, display the localized error message to your customer
-        //     // using `result.error.message`.
-        //     console.log("result error...")
-        // }
 
     };
 
@@ -88,6 +79,7 @@ function Subtotal() {
 
     const body = (
         <div className={classes.paper} >
+            <p>Loading Stripe checkout...</p>
             <CircularProgress />
         </div>
     );

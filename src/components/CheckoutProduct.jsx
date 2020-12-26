@@ -24,7 +24,7 @@ function CheckoutProduct({ id, title, price, rating, image, hidden }) {
 
                 <div className={styles.checkoutProduct__rating}>
                     {Array(rating)
-                        .fill().map((item, ind) => <p>🌟</p>)}
+                        .fill().map((item, ind) => <p key={ind}>🌟</p>)}
                 </div>
 
                 {!hidden && <button onClick={removeFromCart}>Remove From Cart</button>}
