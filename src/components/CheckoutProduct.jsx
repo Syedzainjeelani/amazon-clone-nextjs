@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from '../styles/CheckoutProduct.module.css'
 import { useStateContext } from '../StateProvider'
+import { db } from "../firebase"
 
 function CheckoutProduct({ id, title, price, rating, image, hidden }) {
-    const [state, dispatch] = useStateContext();
+    const [{ user, cart }, dispatch] = useStateContext();
 
     const removeFromCart = () => {
         dispatch({
             type: "REMOVE_FROM_CART",
             id: id,
         })
+
     }
 
     return (

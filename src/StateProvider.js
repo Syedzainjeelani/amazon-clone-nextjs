@@ -1,5 +1,5 @@
 import { useReducer, useContext, createContext } from 'react'
-
+import { db } from './firebase'
 // Prepares the datelayer
 const StateContext = createContext()
 // const DispatchContext = createContext()
@@ -14,6 +14,24 @@ export const initialState = {
 export const getCartTotal = (cart) =>
     cart?.reduce((amount, item) => item.price + amount, 0);
 
+
+const updateCart = (user, cart) => {
+    //update the cart when it changes in firestore
+    db.collection("users")
+        .doc(user?.email)
+        .collection("cart")
+        .doc(user?.uid)
+        .update({
+            cartItems: [...cart]
+        })
+        .then((res) => {
+
+            console.log("Firestore updated cart: ", cart)
+        })
+        .catch(function (error) {
+            console.error("Error adding cart: ", error);
+        });
+}
 
 const reducer = (state, action) => {
     // console.log(action);
@@ -32,6 +50,9 @@ const reducer = (state, action) => {
             } else {
                 console.warn(`Can't remove product {id: ${action.id} not found!}`)
             }
+
+            //update firestore db 
+            updateCart(state.user, newCart)
 
             return {
                 ...state,  // with the current old OTHER state

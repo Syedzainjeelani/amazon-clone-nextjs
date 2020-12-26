@@ -7,7 +7,6 @@ import logoStyle from '../styles/Login.module.css'
 import Link from 'next/link'
 import styles from '../styles/CheckoutResult.module.css'
 import { db, auth } from '../firebase'
-import { formatAmountForDisplay } from "../utils/stripe-helpers"
 
 function checkoutResult() {
     const router = useRouter();

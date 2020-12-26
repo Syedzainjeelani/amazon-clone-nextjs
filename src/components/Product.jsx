@@ -51,7 +51,7 @@ function Product({ id, title, price, rating, image }) {
             image: image,
         }
 
-        if (user !== null) {
+        if (!user) {
             db.collection("users")
                 .doc(user?.email)
                 .collection("cart")
