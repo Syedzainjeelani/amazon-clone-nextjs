@@ -19,7 +19,7 @@ function login() {
         auth
             .signInWithEmailAndPassword(email, password)
             .then((auth) => {
-                console.log(auth)
+                // console.log(auth)
                 if (auth) {
                     router.push('/');
                 }

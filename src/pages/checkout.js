@@ -63,6 +63,13 @@ function checkout() {
 
             <div className={styles.checkout__right}>
                 <Subtotal />
+                {/* <Subtotal /> */}
+                <div className={styles.checkout_testCard}>
+                    <p>Try a stripe checkout Test Card</p>
+                    <p>4242 4242 4242 4242</p>
+                    <p>Expiry date: any Future date </p>
+                    <p>CVC: any 3 digit number </p>
+                </div>
             </div>
 
 
