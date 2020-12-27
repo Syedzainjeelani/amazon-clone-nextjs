@@ -33,12 +33,17 @@
     display: flex;
     flex-direction: column;
     z-index: 1;
+    /* width: 100%; */
+    align-self: center;
+    justify-content: center;
 }
 
 .home__row {
     display: grid;
+    align-self: center;
     margin: 8px;
     margin-left: 0;
+    margin-right: 25px;
     grid-column: auto/span 2;
     grid-template-columns: repeat(3, 26% [col-start]);
     justify-content: space-evenly;
