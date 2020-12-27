@@ -10,6 +10,7 @@
     margin-right: auto;
     width: 100%;
     min-width: 52rem;
+    /* flex-wrap: nowrap; */
 }
 
 .home__container {
@@ -28,10 +29,24 @@
     object-fit: cover;
 }
 
-.home__row {
+.home__grid {
     display: flex;
+    flex-direction: column;
     z-index: 1;
-    margin-left: 5px;
-    margin-right: 5px;
-    height: 420px;
+}
+
+.home__row {
+    display: grid;
+    margin: 8px;
+    margin-left: 0;
+    grid-column: auto/span 2;
+    grid-template-columns: repeat(3, 26% [col-start]);
+    justify-content: space-evenly;
+}
+
+.home__row>div:nth-child(5n - 4),
+.home__row>div:nth-child(5n - 2) {
+    /* why 5n ? , because the pattern is made of 5 elements */
+    grid-column: auto/span 2;
+    /* to reset 2 of them to half width */
 }
