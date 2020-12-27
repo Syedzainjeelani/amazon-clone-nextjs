@@ -42,6 +42,7 @@ function orders() {
                 db.collection("users")
                     .doc(user?.email)
                     .collection("orders")
+                    .orderBy("timeStamp", "desc")
                     .get().then((querySnapshot) => {
                         var ordersList = querySnapshot.docs.map((item) => {
 
@@ -58,6 +59,7 @@ function orders() {
                         //Empty cart from firestore too after successfull checkout
                         console.log("Firebase db response");
                         setLoading(false);
+
                     })
                     .catch(function (error) {
                         console.error("Error adding document: ", error);
@@ -83,6 +85,7 @@ function orders() {
             <h1>Orders & Returns</h1>
             <div className={styles.orders__list}>
                 {loading && <div className={styles.orders__loading}><CircularProgress /></div>}
+                {((!loading) && (orders.length === 0)) && <div className={styles.orders__loading}><p>There are no orders yet!</p></div>}
                 {!loading && orders?.map((order, ind) => {
                     return (
                         <div key={ind} className={styles.orders__order}>

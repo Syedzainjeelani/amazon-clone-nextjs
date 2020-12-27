@@ -51,22 +51,20 @@ function Product({ id, title, price, rating, image }) {
             image: image,
         }
 
-        if (!user) {
-            db.collection("users")
-                .doc(user?.email)
-                .collection("cart")
-                .doc(user?.uid)
-                .set({
-                    cartItems: [...cart, product]
-                })
-                .then((res) => {
-                    console.log("Firestore add to cart: ", res)
-                })
-                .catch(function (error) {
-                    console.error("Error adding cart: ", error);
-                });
+        db.collection("users")
+            .doc(user?.email)
+            .collection("cart")
+            .doc(user?.uid)
+            .set({
+                cartItems: [...cart, product]
+            })
+            .then((res) => {
+                console.log("Firestore add to cart: ", res)
+            })
+            .catch(function (error) {
+                console.error("Error adding cart: ", error);
+            });
 
-        }
         //Adding to the data layer
         dispatch({
             type: "ADD_TO_CART",

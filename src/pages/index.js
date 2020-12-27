@@ -10,7 +10,7 @@ export async function getServerSideProps(context) {
   await db.collection("inventory")
     .doc("inventory_products")
     .get().then((querySnap) => {
-      console.log(querySnap.data().products)
+      // console.log(querySnap.data().products)
       products = querySnap.data().products
 
     })

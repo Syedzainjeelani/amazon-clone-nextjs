@@ -53,7 +53,7 @@ function checkout() {
                     }}
                 >
                     {cart.map((item, ind) => (
-                        <FunctionalArticle key={item.id + ind} {...item} />
+                        <FunctionalArticle key={ind} {...item} />
                     ))}
                 </FlipMove>
 
@@ -78,12 +78,3 @@ function checkout() {
 }
 
 export default checkout
-
-
-{/* <CheckoutProduct
-                                id={item.id}
-                                title={item.title}
-                                price={item.price}
-                                rating={item.rating}
-                                image={item.image}
-                            /> */}

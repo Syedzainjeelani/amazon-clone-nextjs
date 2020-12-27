@@ -7,7 +7,8 @@ const StateContext = createContext()
 
 export const initialState = {
     cart: [],
-    user: null
+    user: null,
+    ordersStored: false,
 };
 
 // Selector (reducer functions should be inside the state provider file)
@@ -69,6 +70,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user,
+            }
+        case "ORDER_STORED":
+            return {
+                ...state,
+                ordersStored: action.stored,
             }
 
         default:

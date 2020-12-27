@@ -10,8 +10,8 @@ import { db, auth } from '../firebase'
 
 function checkoutResult() {
     const router = useRouter();
-    const [{ cart, user }, dispatch] = useStateContext();
-    const [ordersStored, setOrdersStored] = useState(false);
+    const [{ cart, user, ordersStored }, dispatch] = useStateContext();
+    // const [ordersStored, setOrdersStored] = useState(false);
 
 
     // Fetch CheckoutSession from static page via
@@ -30,6 +30,7 @@ function checkoutResult() {
             type: "EMPTY_CART",
         })
 
+
         //empty from firestore too 
         db.collection("users")
             .doc(user?.email)
@@ -43,20 +44,27 @@ function checkoutResult() {
 
     }
 
-    const storeOrders = () => {
+    const storeOrders = (cartList) => {
 
-        if (data?.payment_intent?.status === "succeeded") {
+        console.log("IS order stored: ", ordersStored)
+        if ((data?.payment_intent?.status === "succeeded") && (!ordersStored)) {
+
 
             db.collection("users")
                 .doc(user?.email)
                 .collection("orders")
                 .doc(data?.id)
                 .set({
+                    timeStamp: Date.now(),
                     amount: (data?.payment_intent?.amount / 100),
-                    data: cart, // Cart is empty due to data layer ?????????????????
+                    data: cartList,
                 })
                 .then((res) => {
-                    setOrdersStored(true)
+                    // setOrdersStored(true) //not working can't change state on unmounted component
+                    // dispatch({
+                    //     type: "ORDER_STORED",
+                    //     stored: true,  //false because its already true from cart loading..
+                    // })
                     //Empty cart from firestore too after successfull checkout
                     console.log("Firebase db res: ", res)
                     emptyCart();
@@ -70,7 +78,7 @@ function checkoutResult() {
             //Redirecting to the Orders page in 5 seconds
             setTimeout(() => {
                 router.push('/orders')
-            }, 2000)
+            }, 1000)
 
         }
 
@@ -97,8 +105,10 @@ function checkoutResult() {
             })
         }
 
+        console.log("IS order stored (before loading cart): ", ordersStored)
+
         //fetch cart from firestore too (data layer is not persistent over page reload)
-        if (cart?.length === 0) {
+        if ((cart?.length === 0) && (!ordersStored)) {
             //if cart empty load cart from firestore db if empty due to reload
             db.collection("users")
                 .doc(user?.email)
@@ -106,32 +116,36 @@ function checkoutResult() {
                 .get().then((querySnapshot) => {
                     var cartList = querySnapshot.docs.map((item) => {
                         //dispatch items from db to data layer
-                        item.data()?.cartItems.map((product) => {
+                        item.data().cartItems.map((product) => {
                             //only add if cart is empty and only due to reload. 
 
                             dispatch({
                                 type: "ADD_TO_CART",
                                 item: product,
                             })
+
                         })
                         return item.data().cartItems
                     })
-                    console.log("Result from checkouT Res: ", cartList)
+
+
+                    if ((cartList?.length !== 0)) {
+                        //finally when cart is loaded then store orders to DB
+                        storeOrders(cartList[0])
+                        //setting order stored true here other wise cart is loaded twice 
+                        dispatch({
+                            type: "ORDER_STORED",
+                            stored: true,
+                        })
+                    }
+
+                    console.log("Result from checkouT Res: ", cartList[0])
 
                 })
         }
-        if ((cart?.length !== 0) && (!ordersStored)) {
-            //finally when cart is loaded then store orders to DB
-            storeOrders()
-        }
-
-
 
     }, [data, user, cart])
 
-
-
-    console.log(data)
     return (
         <div className={styles.checkoutResult}>
 

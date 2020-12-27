@@ -1,5 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-
 /*
  * Product data can be loaded from anywhere. In this case, we’re loading it from
  * a local JSON file, but this could also come from an async call to your
@@ -8,30 +6,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
  * The important thing is that the product info is loaded from somewhere trusted
  * so you know the pricing information is accurate.
  */
-import { validateCartItems } from 'use-shopping-cart/src/serverUtil';
-import inventory from '../../../config/data/products.json';
 import { formatAmountForStripe } from '../../../utils/stripe-helpers'
 
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     // https://github.com/stripe/stripe-node#configuration
-    // apiVersion: '2020-03-02',
 });
 
 
 const cartToLineItems = (cartItems) => {
-    // [
-    //     {
-    //       price_data: {
-    //         currency: 'usd',
-    //         product_data: {
-    //           name: 'T-shirt',
-    //         },
-    //         unit_amount: 2000,
-    //       },
-    //       quantity: 1,
-    //     },
-    //   ]
+
     return cartItems.map((item) => {
         return {
             price_data: {

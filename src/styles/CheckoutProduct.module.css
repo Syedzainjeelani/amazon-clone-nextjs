@@ -1,10 +1,11 @@
 .checkoutProduct {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     max-height: 400px;
     min-width: 300px;
     padding: 20px;
+    margin-top: 20px;
 }
 
 .checkoutProduct__image {
@@ -16,7 +17,7 @@
 
 .checkoutProduct__title {
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .checkoutProduct__info {
