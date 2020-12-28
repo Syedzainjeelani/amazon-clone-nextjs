@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import styles from '../styles/Checkout.module.css'
 import Subtotal from '../components/Subtotal'
 import CheckoutProduct from '../components/CheckoutProduct'
@@ -27,6 +27,48 @@ function checkout() {
         </div>
     ));
 
+    useEffect(() => {
+        // effect
+        // return () => {
+        //     cleanup
+        // }
+        //load cart from db
+        // db.collection("users")
+        //         .doc(user?.email)
+        //         .collection("cart")
+        //         .get().then((querySnapshot) => {
+        //             var cartList = querySnapshot.docs.map((item) => {
+        //                 //dispatch items from db to data layer
+        //                 item.data().cartItems.map((product) => {
+        //                     //only add if cart is empty and only due to reload. 
+
+        //                     dispatch({
+        //                         type: "ADD_TO_CART",
+        //                         item: product,
+        //                     })
+
+        //                 })
+        //                 return item.data().cartItems
+        //             })
+
+
+        // if ((cartList?.length !== 0)) {
+        //     //finally when cart is loaded then store orders to DB
+        //     storeOrders(cartList[0])
+        //     //setting order stored true here other wise cart is loaded twice 
+        //     dispatch({
+        //         type: "ORDER_STORED",
+        //         stored: true,
+        //     })
+        // }
+
+        //             console.log("Result from checkouT Res: ", cartList[0])
+
+        //         })
+
+
+        console.log("cart rerender checkout")
+    }, [])
 
     return (
         <div className={styles.checkout}>
@@ -38,7 +80,7 @@ function checkout() {
                     <h2 className={styles.checkout__title}>
                         Hello, {user?.email} <br />
                         {/* (?) = (like a try catch block) optional chaining helps with errs until user is loaded */}
-                    Your Shoping Cart {cart.length === 0 && 'is Empty'}
+                    Your Shoping Cart {cart?.length === 0 && 'is Empty'}
                     </h2>
 
                 </div>
@@ -52,7 +94,7 @@ function checkout() {
                         to: ticketNotVisibleState,
                     }}
                 >
-                    {cart.map((item, ind) => (
+                    {cart?.map((item, ind) => (
                         <FunctionalArticle key={ind} {...item} />
                     ))}
                 </FlipMove>

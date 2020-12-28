@@ -12,7 +12,17 @@ function CheckoutProduct({ id, title, price, rating, image, hidden }) {
             id: id,
         })
 
+        dispatch({
+            type: "ORDER_STORED",
+            stored: true,
+        })
+
+
     }
+
+    useEffect(() => {
+        console.log('Cart updated...', cart)
+    }, [cart])
 
     return (
         <div className={styles.checkoutProduct}>

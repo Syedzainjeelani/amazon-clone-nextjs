@@ -12,7 +12,8 @@ function MyApp({ Component, pageProps }) {
     router.pathname.startsWith("/checkoutResult") ||
     router.pathname === '/orders'
     ? false : true;
-
+  const showFooter = router.pathname === '/checkout'
+    ? false : true;
 
   return (
     <div>
@@ -26,7 +27,7 @@ function MyApp({ Component, pageProps }) {
         <StateProvider >
           {showHeader && <Header />}
           <Component {...pageProps} />
-          {showHeader && <Footer />}
+          {(showHeader && showFooter) && <Footer />}
         </StateProvider>
 
       </main>

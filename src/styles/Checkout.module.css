@@ -5,6 +5,7 @@
     justify-content: space-evenly;
     padding: 20px;
     height: 100%;
+    min-height: 30rem;
 }
 
 .checkout__left {
@@ -13,9 +14,11 @@
     justify-content: space-evenly;
     width: 60%;
     min-width: 400px;
-    min-height: 400px;
+    height: 100%;
+    min-height: max-content;
     background-color: white;
     padding: 10px;
+    padding-bottom: 40px;
 }
 
 .checkout__right {

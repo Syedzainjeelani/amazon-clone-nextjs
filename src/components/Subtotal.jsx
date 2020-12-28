@@ -96,7 +96,7 @@ function Subtotal() {
             <CurrencyFormat
                 renderText={(value) => (<>
                     <p>
-                        Subtotal ({cart.length} items): <strong>{value}</strong>
+                        Subtotal ({cart?.length} items): <strong>{value}</strong>
                     </p>
                     <small className={styles.subtotal__gift}>
                         <input type="checkbox" /> This order contains a gift
@@ -110,7 +110,7 @@ function Subtotal() {
                 thousandSeparator={true}
                 prefix={"$"}
             />
-            <button role="link" onClick={handleClick} disabled={!user || cart.length === 0 || loading} >Proceed To Checkout
+            <button role="link" onClick={handleClick} disabled={!user || cart?.length === 0 || loading} >Proceed To Checkout
                 <div id="splash" className={styles.subtotal__splash}></div>
             </button>
 
@@ -121,7 +121,7 @@ function Subtotal() {
             >
                 {body}
             </Modal>
-            {(!user || (cart.length === 0)) && <p className={styles.subtotal__caption}>{cart.length === 0 && user ? "Please Add some items to the Cart" : "Please Sign in First"}</p>}
+            {(!user || (cart?.length === 0)) && <p className={styles.subtotal__caption}>{cart?.length === 0 && user ? "Please Add some items to the Cart" : "Please Sign in First"}</p>}
         </div>
     )
 }

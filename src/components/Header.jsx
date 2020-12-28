@@ -9,7 +9,7 @@ import { useStateContext } from '../StateProvider';
 import { auth, db } from '../firebase';
 
 function Header() {
-    const [{ cart, user }, dispatch] = useStateContext();
+    const [{ cart, user, ordersStored }, dispatch] = useStateContext();
 
     //just like component did mount (will run every time component is loaded)
     useEffect(() => {
@@ -33,7 +33,7 @@ function Header() {
             })
         }
 
-        if (cart?.length === 0 && (user)) {
+        if (cart?.length === 0 && (user) && (!ordersStored)) {
             //load cart from firestore db if empty due to reload
             db.collection("users")
                 .doc(user?.email)
@@ -116,7 +116,7 @@ function Header() {
 
                 <Link href='/checkout'>
 
-                    <div style={cart.length !== 0 ? {
+                    <div style={cart?.length !== 0 ? {
                         padding: "4px",
                         paddingInline: "7px",
                         marginRight: "8px",
@@ -126,7 +126,7 @@ function Header() {
                     } : {}}
                         className={styles.header__nav, styles.header__option}>
                         <span className={styles.header__optionLineTwo, styles.header__cartCount}>
-                            {cart.length}
+                            {cart?.length}
                         </span>
                         <AddShoppingCartIcon />
                     </div>
