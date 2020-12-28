@@ -1,17 +1,18 @@
 .checkout {
     display: flex;
     width: inherit;
-    /* min-width: 100%; */
+    min-width: 48rem;
+    justify-content: space-evenly;
     padding: 20px;
-    height: max-content;
-    min-height: 300px;
+    height: 100%;
 }
 
 .checkout__left {
     margin-right: 20px;
+    margin-left: 10px;
     justify-content: space-evenly;
-    width: 70%;
-    min-width: min-content;
+    width: 60%;
+    min-width: 400px;
     min-height: 400px;
     background-color: white;
     padding: 10px;

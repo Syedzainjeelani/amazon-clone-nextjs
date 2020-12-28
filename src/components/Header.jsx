@@ -115,12 +115,22 @@ function Header() {
                 </Link>
 
                 <Link href='/checkout'>
-                    <div className={styles.header__nav, styles.header__option}>
+
+                    <div style={cart.length !== 0 ? {
+                        padding: "4px",
+                        paddingInline: "7px",
+                        marginRight: "8px",
+                        border: "1px solid gray",
+                        borderRadius: "3px",
+                        boxShadow: "1px 2px 8px 2px rgb(167, 167, 167)",
+                    } : {}}
+                        className={styles.header__nav, styles.header__option}>
                         <span className={styles.header__optionLineTwo, styles.header__cartCount}>
                             {cart.length}
                         </span>
                         <AddShoppingCartIcon />
                     </div>
+
                 </Link>
             </div>
         </div >
@@ -128,3 +138,5 @@ function Header() {
 }
 
 export default Header
+
+

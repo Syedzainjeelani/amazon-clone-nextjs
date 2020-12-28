@@ -2,7 +2,7 @@
     display: flex;
     flex: 1;
     background-color: white;
-    height: 60px;
+    height: 65px;
     width: 100%;
     min-width: 52rem;
     /* white-space: nowrap; */
@@ -87,8 +87,7 @@
 }
 
 .header__option:hover {
-    border: 1px;
-    border: 1px solid #d49946;
+    border: 2px solid #d49946 !important;
     border-radius: 3px;
 }
 
@@ -102,6 +101,7 @@
     flex-direction: column;
     align-items: center;
     margin-right: 15px;
+    white-space: nowrap;
 }
 
 .header__optionLineOne {
@@ -114,8 +114,9 @@
 }
 
 
-/* 
-.cart__div {
-    display: flex;
-    justify-content: ;
+/* .header__cartLive {
+    border: 1px solid #d49946;
+    border-radius: 3px;
+    box-shadow: rgb(167, 167, 167);
+    background: black;
 } */
